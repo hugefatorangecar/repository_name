@@ -1,0 +1,18 @@
+# Tools (local only)
+.tools/
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*~
+
+# Env / secrets
+.env
+.env.*
+.github-token
+*.pem
+credentials.json
