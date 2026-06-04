@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>루키 × 일본 캠페인 바이블</title>
+  <style>
+    :root {
+      --text: #1a1d26;
+      --muted: #5c6370;
+      --border: #e5e8ef;
+      --green-bg: #f0fdf4;
+      --green-bg-light: #ecfdf5;
+      --green-border: #bbf7d0;
+      --green-accent: #059669;
+      --green-soft: #d1fae5;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: #fafbfc;
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* Header */
+    header {
+      border-bottom: 2px solid var(--green-border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    header .eyebrow {
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      color: var(--green-accent);
+      font-weight: 600;
+    }
+    header h1 {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0.4rem 0 0.6rem;
+    }
+    header .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    header .meta span + span::before {
+      content: " · ";
+    }
+    .hero-copy {
+      margin-top: 1.25rem;
+      padding: 1rem 1.25rem;
+      background: var(--green-bg);
+      border-left: 3px solid var(--green-accent);
+      border-radius: 0 6px 6px 0;
+    }
+    .hero-copy .main {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .hero-copy .sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    /* TOC */
+    nav.toc {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 2rem;
+    }
+    nav.toc h2 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.6rem;
+    }
+    nav.toc ol {
+      padding-left: 1.2rem;
+      font-size: 0.9rem;
+    }
+    nav.toc li { margin-bottom: 0.25rem; }
+    nav.toc a {
+      color: var(--text);
+      text-decoration: none;
+    }
+    nav.toc a:hover { color: var(--green-accent); text-decoration: underline; }
+
+    /* Sections */
+    section {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.25rem;
+    }
+    section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    section h2 .label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--green-accent);
+      background: var(--green-bg-light);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.4rem;
+      vertical-align: middle;
+    }
+    h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 1.1rem 0 0.5rem;
+      color: var(--text);
+    }
+    h3:first-of-type { margin-top: 0; }
+    p { margin-bottom: 0.65rem; font-size: 0.92rem; }
+    p:last-child { margin-bottom: 0; }
+    .ref {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .ref code {
+      font-size: 0.8rem;
+      background: #f3f4f6;
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin: 0.75rem 0;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.75rem;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f8f9fb;
+      font-weight: 600;
+      width: 28%;
+    }
+    table.compact th { width: auto; }
+    tr.highlight td { background: var(--green-bg-light); }
+    tr.pass td:last-child { color: var(--green-accent); font-weight: 600; }
+
+    /* Lists */
+    ul, ol { padding-left: 1.25rem; font-size: 0.92rem; margin: 0.5rem 0; }
+    li { margin-bottom: 0.3rem; }
+    ul.plain { list-style: none; padding-left: 0; }
+    ul.plain li {
+      padding: 0.35rem 0;
+      border-bottom: 1px solid #f0f1f3;
+    }
+    ul.plain li:last-child { border-bottom: none; }
+
+    /* Blocks */
+    .note {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 0.88rem;
+      margin: 0.75rem 0;
+      color: #065f46;
+    }
+    .chain {
+      background: var(--green-bg);
+      border: 1px solid var(--green-border);
+      border-radius: 6px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.85rem;
+      line-height: 1.8;
+      margin: 0.75rem 0;
+    }
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      padding: 0.15rem 0.45rem;
+      background: var(--green-bg-light);
+      color: var(--green-accent);
+      border: 1px solid var(--green-border);
+      border-radius: 4px;
+      margin-right: 0.3rem;
+    }
+    .score-total {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--green-accent);
+      background: var(--green-bg);
+      padding: 0.25rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--green-border);
+    }
+
+    /* Checklist */
+    .checklist { list-style: none; padding-left: 0; }
+    .checklist li {
+      position: relative;
+      padding: 0.3rem 0 0.3rem 1.5rem;
+      font-size: 0.9rem;
+      border-bottom: 1px dashed #eee;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--green-accent);
+    }
+
+    /* File tree */
+    pre.files {
+      background: #f8f9fb;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      font-family: "D2Coding", "Consolas", monospace;
+      font-size: 0.82rem;
+      line-height: 1.65;
+      overflow-x: auto;
+      margin: 0.75rem 0;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media print {
+      body { background: #fff; font-size: 12pt; }
+      .wrap { max-width: 100%; padding: 0; }
+      nav.toc { display: none; }
+      section { break-inside: avoid; border: 1px solid #ddd; box-shadow: none; }
+    }
+    @media (max-width: 600px) {
+      .wrap { padding: 1.25rem 1rem 2.5rem; }
+      section { padding: 1.15rem 1.25rem; }
+      th { width: 35%; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">NAVER LABS · From Labs to World</div>
+    <h1>루키(Rookie) × 일본 캠페인 바이블</h1>
+    <p class="meta">
+      <span>버전 1.0</span>
+      <span>검수 통과 57/70</span>
+      <span>2026</span>
+    </p>
+    <div class="hero-copy">
+      <div class="main">「헤맬 때, 루키가 먼저 곁에 있다」</div>
+      <div class="sub">迷ったとき、ルーキーが先にそばにいる · 공간의 마찰을 환대로</div>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <h2>목차</h2>
+    <ol>
+      <li><a href="#overview">캠페인 개요</a></li>
+      <li><a href="#ae">01. AE 기획서</a></li>
+      <li><a href="#copy">02. 핵심 카피</a></li>
+      <li><a href="#image">03. 이미지 광고</a></li>
+      <li><a href="#video">04. 영상 광고</a></li>
+      <li><a href="#outdoor">05. 옥외 광고</a></li>
+      <li><a href="#creative">06. 혁신 광고</a></li>
+      <li><a href="#review">07. 검수 결과</a></li>
+      <li><a href="#checklist">실행 체크리스트</a></li>
+      <li><a href="#files">산출물 파일</a></li>
+    </ol>
+  </nav>
+
+  <!-- 개요 -->
+  <section id="overview">
+    <h2>캠페인 개요</h2>
+    <table>
+      <tr><th>브랜드</th><td>루키(Rookie) — NAVER LABS 공간지능 기반 실내 로봇</td></tr>
+      <tr><th>시장</th><td>일본 (엔저 인바운드 + 서비스업 인력난)</td></tr>
+      <tr><th>목표</th><td>"배달 로봇 → 공간 경험 로봇" 리프레이밍, B2B 도입 확대 + B2C 경험 인지</td></tr>
+      <tr><th>도메인</th><td>프리미엄 복합문화공간 (아자부다이힐스·롯폰기힐즈급)</td></tr>
+      <tr><th>타겟</th><td>1차: CX·운영 디렉터 / 2차: 복합공간 방문객 (외국인·이벤트)</td></tr>
+      <tr class="highlight"><th>빅 아이디어</th><td>「공간의 마찰을 환대로」</td></tr>
+      <tr class="highlight"><th>메인 카피</th><td>「헤맬 때, 루키가 먼저 곁에 있다」 / 「迷ったとき、ルーキーが先にそばにいる」</td></tr>
+    </table>
+  </section>
+
+  <!-- 01 AE -->
+  <section id="ae">
+    <h2><span class="label">01</span> AE 기획서</h2>
+    <p class="ref">상세: <code>01_ae_brief.md</code></p>
+
+    <h3>배경</h3>
+    <p>엔저 인바운드 급증 + 서비스업 인력난 + "배달 로봇" 카테고리 한계 → 공간 경험 로봇 리프레이밍 필요</p>
+
+    <h3>3대 모먼트</h3>
+    <table class="compact">
+      <thead>
+        <tr><th>마찰</th><th>루키의 환대</th><th>감정 전환</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>헤맴</td><td>말하기 전 다국어 안내</td><td>혼란 → 안심</td></tr>
+        <tr><td>기다림</td><td>대기 중 추천·환대</td><td>공백 → 즐거움</td></tr>
+        <tr><td>불안</td><td>재난·응급 다국어 안내</td><td>불안 → 신뢰</td></tr>
+      </tbody>
+    </table>
+
+    <h3>논리 체인</h3>
+    <div class="chain">공간지능 → 24시간·다국어 → 마찰 감소 → 체류·재방문↑ → 운영 KPI·화제성↑ → 도입 확대</div>
+
+    <h3>톤앤매너</h3>
+    <p>「조용한 프리미엄, 따뜻한 존재감」 — 오모테나시·절제·품격</p>
+
+    <h3>사실 vs 포장</h3>
+    <ul>
+      <li><span class="tag">사실</span> 공간지능, 자율주행, 다국어, 24시간</li>
+      <li><span class="tag">포장</span> "공간 마스터" (경험적 은유)</li>
+      <li><span class="tag">방어</span> 페퍼 차별, 오프라인 폴백, 프라이버시 (공간 O / 개인 X)</li>
+    </ul>
+
+    <h3>로드맵</h3>
+    <p>Phase 0 준비 → Phase 1 B2B 파일럿 → Phase 2 B2C 인지 → Phase 3 카테고리 정착</p>
+  </section>
+
+  <!-- 02 Copy -->
+  <section id="copy">
+    <h2><span class="label">02</span> 핵심 카피</h2>
+    <p class="ref">상세: <code>02_copy.md</code></p>
+    <table class="compact">
+      <thead>
+        <tr><th>구분</th><th>한국어</th><th>일본어</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight">
+          <td><strong>메인</strong></td>
+          <td>헤맬 때, 루키가 먼저 곁에 있다</td>
+          <td>迷ったとき、ルーキーが先にそばにいる</td>
+        </tr>
+        <tr><td>감성</td><td>공간이 당신을 기억하는 순간, 루키가 거기 있다</td><td>空間があなたを覚えている、その瞬間にルーキー</td></tr>
+        <tr><td>이성</td><td>체류는 길어지고, 불안은 줄어든다</td><td>滞在は長く、不安は減る — 空間を読むルーキー</td></tr>
+        <tr><td>서브</td><td>헤맬 때, 기다릴 때, 불안할 때</td><td>迷ったとき、待つとき、不安なとき</td></tr>
+        <tr><td>빅아이디어</td><td>공간의 마찰을 환대로</td><td>空間の摩擦を、おもてなしに</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>B2B:</strong> 「인력을 더 뽑는 시대는 끝났다. 공간이 손님을 맞이하는 시대다」</div>
+  </section>
+
+  <!-- 03 Image -->
+  <section id="image">
+    <h2><span class="label">03</span> 이미지 광고</h2>
+    <p class="ref">상세: <code>03_image.md</code></p>
+    <p><strong>컨셉:</strong> 「정지된 순간의 감정 전환」 — 손님 표정이 주인공</p>
+    <table class="compact">
+      <thead><tr><th>유형</th><th>핵심</th></tr></thead>
+      <tbody>
+        <tr><td>3컷 시리즈</td><td>헤맴→안내 / 기다림→환대 / 불안→안심</td></tr>
+        <tr><td>B2B</td><td>KPI 인포그래픽 + 공간 전경, LinkedIn·제안서</td></tr>
+        <tr><td>현장 POP</td><td>「迷ったら、ルーキー」다국어, 파일럿 공간</td></tr>
+        <tr><td>SNS</td><td>Instagram 캐러셀, #ルーキー</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:0.88rem;">금지: SF 네온, 공장 배경, 로봇 단독 클로즈업</p>
+  </section>
+
+  <!-- 04 Video -->
+  <section id="video">
+    <h2><span class="label">04</span> 영상 광고</h2>
+    <p class="ref">상세: <code>04_video.md</code></p>
+    <table class="compact">
+      <thead><tr><th>길이</th><th>용도</th><th>핵심</th></tr></thead>
+      <tbody>
+        <tr><td>15초</td><td>SNS·프리롤</td><td>헤맴 1모먼트 + 슬로건</td></tr>
+        <tr><td>30초</td><td>B2C 인지</td><td>3대 모먼트 몽타주</td></tr>
+        <tr><td>90초</td><td>B2B·브랜드</td><td>공간→마찰→루키→KPI→리프레이밍</td></tr>
+        <tr><td>60초</td><td>B2B 사례</td><td>도입 전후, 손님 표정 + KPI</td></tr>
+      </tbody>
+    </table>
+    <p><strong>연출:</strong> POV 시작, 절제된 BGM, 일·영·한 3버전</p>
+  </section>
+
+  <!-- 05 Outdoor -->
+  <section id="outdoor">
+    <h2><span class="label">05</span> 옥외 광고</h2>
+    <p class="ref">상세: <code>05_outdoor.md</code></p>
+    <table class="compact">
+      <thead><tr><th>매체</th><th>위치·메시지</th></tr></thead>
+      <tbody>
+        <tr><td>DOOH</td><td>롯폰기·麻布 인바운드 동선, QR→체험</td></tr>
+        <tr><td>래핑·LED</td><td>파일럿 외벽·中庭, 3대 모먼트</td></tr>
+        <tr><td>역사·교통</td><td>東京メトロ, 成田↔都心, 다국어</td></tr>
+      </tbody>
+    </table>
+    <p><strong>원칙:</strong> 공간명 연계, 한 문장·한 장면, 프리미엄 톤</p>
+  </section>
+
+  <!-- 06 Creative -->
+  <section id="creative">
+    <h2><span class="label">06</span> 혁신 광고</h2>
+    <p class="ref">상세: <code>06_creative.md</code></p>
+    <table class="compact">
+      <thead><tr><th>이벤트</th><th>목적</th></tr></thead>
+      <tbody>
+        <tr><td>ルーキーと歩く空間</td><td>30분 가이드 투어, B2C→SNS→B2B</td></tr>
+        <tr><td>待ち時間のおもてなし</td><td>대기열 환대, KPI</td></tr>
+        <tr><td>空間マスター・サミット</td><td>CX 디렉터 50+, B2B 리드</td></tr>
+        <tr><td>オフライン デモ</td><td>통신 차단 시뮬, 신뢰</td></tr>
+        <tr><td>プライバシー・チャーター</td><td>"공간은 알고, 개인은 식별하지 않음"</td></tr>
+        <tr><td>逆転体験</td><td>루키有無 30분 비교, 바이럴</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><strong>KPI:</strong> "루키=배달" 연상 -20%p · "루키=공간·환대" +25%p</div>
+  </section>
+
+  <!-- 07 Review -->
+  <section id="review">
+    <h2><span class="label">07</span> 검수 결과</h2>
+    <p class="ref">상세: <code>07_review.md</code></p>
+    <table class="compact">
+      <thead><tr><th>항목</th><th>점수</th></tr></thead>
+      <tbody>
+        <tr><td>전략적 일관성</td><td>9</td></tr>
+        <tr><td>카피 임팩트</td><td>8</td></tr>
+        <tr><td>이미지</td><td>8</td></tr>
+        <tr><td>영상</td><td>8</td></tr>
+        <tr><td>옥외</td><td>7</td></tr>
+        <tr><td>혁신</td><td>9</td></tr>
+        <tr><td>전체 완성도</td><td>8</td></tr>
+        <tr class="pass"><td><strong>총점</strong></td><td><span class="score-total">57 / 70</span> · 통과</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:0.75rem;font-size:0.88rem;color:var(--muted);">실행 전 체크: 옥외 예산·규제, 파일럿 공간 확정, Phase 0 법무 검수</p>
+  </section>
+
+  <!-- Checklist -->
+  <section id="checklist">
+    <h2>실행 체크리스트</h2>
+
+    <h3>Phase 0 (D-60 ~ D-30)</h3>
+    <ul class="checklist">
+      <li>일본어 카피·법무·프라이버시 검수</li>
+      <li>파일럿 공간 1~2곳 MOU</li>
+      <li>3대 모먼트 KPI 베이스라인</li>
+      <li>B2B 제안서·90초 스크립트 확정</li>
+    </ul>
+
+    <h3>Phase 1 — B2B (D-30 ~ D+90)</h3>
+    <ul class="checklist">
+      <li>B2B 디지털·LinkedIn 캠페인</li>
+      <li>空間マスター・サミット 개최</li>
+      <li>파일럿 가동·A/B</li>
+      <li>사례 영상·백서 (PoC→본계약 2건+)</li>
+    </ul>
+
+    <h3>Phase 2 — B2C (D+60 ~ D+180)</h3>
+    <ul class="checklist">
+      <li>현장 POP·15/30초 영상·SNS</li>
+      <li>ルーキーと歩く空間 체험 (#ルーキー 1,000+)</li>
+      <li>옥외 DOOH·래핑</li>
+      <li>2차 파일럿·확장 PR</li>
+    </ul>
+
+    <h3>Phase 3 — 정착 (D+180~)</h3>
+    <ul class="checklist">
+      <li>"공간 경험 로봇" 업계 용어화</li>
+      <li>APAC 확장 템플릿</li>
+      <li>B2B2C flywheel 가동</li>
+    </ul>
+
+    <h3>매체별 착수</h3>
+    <ul class="checklist">
+      <li>이미지: 3컷 키비주얼 → POP·SNS</li>
+      <li>영상: 15/30/90초 제작·다국어</li>
+      <li>옥외: DOOH·래핑 (공간명 연계)</li>
+      <li>혁신: 서밋 → 체험 → Charter</li>
+    </ul>
+  </section>
+
+  <!-- Files -->
+  <section id="files">
+    <h2>산출물 파일 목록</h2>
+    <pre class="files">campaigns/rookie-japan/
+├── 01_ae_brief.md       AE 기획서
+├── 02_copy.md           핵심 카피
+├── 03_image.md          이미지 광고
+├── 04_video.md          영상 광고
+├── 05_outdoor.md        옥외 광고
+├── 06_creative.md       혁신 광고
+├── 07_review.md         대표 검수
+├── 08_campaign_bible.md 본 문서 (Markdown)
+└── 08_campaign_bible.html 본 문서 (HTML)</pre>
+  </section>
+
+  <footer>
+    루키 × 일본 캠페인 바이블 · 이 문서 하나로 전체 캠페인을 실행할 수 있습니다.
+  </footer>
+
+</div>
+</body>
+</html>
